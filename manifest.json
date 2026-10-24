@@ -1,0 +1,16 @@
+{
+  "name": "Archive",
+  "version": "1.0.0",
+  "identifier": "com.freebsdx.archive",
+  "executable": "bin/archive",
+  "icon": "Resources/icon.svg",
+  "permissions": [
+    "com.freebsdx.permission.UI",
+    "com.freebsdx.permission.STORAGE_WRITE"
+  ],
+  "mime_types": [
+    "application/zip",
+    "application/x-tar",
+    "application/gzip"
+  ]
+}
