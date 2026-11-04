@@ -405,6 +405,13 @@ int main(int argc, char** argv) {
                    static_cast<uint32_t>(ArchiveOpcode::List),
                    {reinterpret_cast<const uint8_t*>(&req), sizeof(req)},
                    [entries, rebuild_list, load_page, set_status](const XBusMessage& resp) {
+                       if (resp.opcode_ != static_cast<uint32_t>(ArchiveOpcode::List)) {
+                           ArchiveStatusResponse sr{};
+                           std::memcpy(&sr, resp.payload_, sizeof(sr));
+                           sr.message_[sizeof(sr.message_) - 1] = '\0';
+                           if (*set_status) (*set_status)(sr.message_);
+                           return;
+                       }
                        ArchiveListPage lp{};
                        std::memcpy(&lp, resp.payload_, sizeof(lp));
 
